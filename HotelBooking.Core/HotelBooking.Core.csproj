@@ -9,4 +9,10 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Moq" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Moq" Version="4.17.2" />
+  </ItemGroup>
 </Project>
