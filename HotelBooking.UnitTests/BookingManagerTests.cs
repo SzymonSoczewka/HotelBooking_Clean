@@ -72,7 +72,7 @@ namespace HotelBooking.UnitTests
         }
 
         [Fact]
-        public void CreateBooking_StartDateLaterThanEndDate_ReturnsFalse()
+        public void CreateBooking_StartDateLaterThanEndDate_ThrowsArgumentException()
         {
             // Arrange
             Booking booking = new()
@@ -81,13 +81,14 @@ namespace HotelBooking.UnitTests
                 EndDate = DateTime.Today.AddDays(1)
             };
             // Act
-            bool isCreated = bookingManager.CreateBooking(booking);
+            //bool isCreated = bookingManager.CreateBooking(booking);
+            void act() => bookingManager.CreateBooking(booking);
             // Assert
-            Assert.False(isCreated);
+            Assert.Throws<ArgumentException>(act);
         }
 
         [Fact]
-        public void CreateBooking_StartDateInThePast_ReturnsFalse()
+        public void CreateBooking_StartDateInThePast_ThrowsArgumentException()
         {
             // Arrange
             Booking booking = new()
@@ -96,9 +97,9 @@ namespace HotelBooking.UnitTests
                 EndDate = DateTime.Today
             };
             // Act
-            bool isCreated = bookingManager.CreateBooking(booking);
+            void act() => bookingManager.CreateBooking(booking);
             // Assert
-            Assert.False(isCreated);
+            Assert.Throws<ArgumentException>(act);
         }
 
         [Fact]
@@ -107,8 +108,8 @@ namespace HotelBooking.UnitTests
             // Arrange
             Booking booking = new()
             {
-                StartDate = DateTime.Today.AddDays(1),
-                EndDate = DateTime.Today.AddDays(1)
+                StartDate = DateTime.Today.AddDays(6),
+                EndDate = DateTime.Today.AddDays(8)
             };
             // Act
             bool isCreated = bookingManager.CreateBooking(booking);
@@ -122,8 +123,8 @@ namespace HotelBooking.UnitTests
             // Arrange
             Booking booking = new()
             {
-                StartDate = DateTime.Today.AddDays(11),
-                EndDate = DateTime.Today.AddDays(12)
+                StartDate = DateTime.Today.AddDays(21),
+                EndDate = DateTime.Today.AddDays(25)
             };
             // Act
             bool isCreated = bookingManager.CreateBooking(booking);
