@@ -60,7 +60,7 @@ namespace HotelBooking.UnitTests
         }
 
         [Fact]
-        public void FindAvailableRoom_RoomAvailable_RoomIdNotMinusOne()
+        public void FindAvailableRoom_RoomAvailable_ReturnsRoomIdNotMinusOne()
         {
             // Arrange
             DateTime startDate = DateTime.Today.AddDays(1);
@@ -129,6 +129,43 @@ namespace HotelBooking.UnitTests
             bool isCreated = bookingManager.CreateBooking(booking);
             // Assert
             Assert.True(isCreated);
+        }
+
+        [Fact]
+        public void GetFullyOccupiedDates_StartDateLaterThanEndDate_ThrowsArgumentException()
+        {
+            //Arrange
+            DateTime startDate = DateTime.Today.AddDays(10);
+            DateTime endDate = DateTime.Today.AddDays(1);
+            //Act
+            void act() => bookingManager.GetFullyOccupiedDates(startDate, endDate);
+            //Assert
+            Assert.Throws<ArgumentException>(act);
+        }
+
+
+        [Fact]
+        public void GetFullyOccupiedDates_TestDatesMatchFullyOccupiedDates_ReturnsListCount16()
+        {
+            //Arrange
+            DateTime startDate = DateTime.Today.AddDays(5);
+            DateTime endDate = DateTime.Today.AddDays(20);
+            //Act
+            List<DateTime> fullyOccupiedDates = bookingManager.GetFullyOccupiedDates(startDate, endDate);
+            //Assert
+            Assert.Equal(16, fullyOccupiedDates.Count);
+        }
+
+        [Fact]
+        public void GetFullyOccupiedDates_StartDayAdd21EndDateAdd25_ReturnsEmptyList()
+        {
+            //Arrange
+            DateTime startDate = DateTime.Today.AddDays(1);
+            DateTime endDate = DateTime.Today.AddDays(4);
+            //Act
+            List<DateTime> fullyOccupiedDates = bookingManager.GetFullyOccupiedDates(startDate, endDate);
+            //Assert
+            Assert.Empty(fullyOccupiedDates);
         }
     }
 }
