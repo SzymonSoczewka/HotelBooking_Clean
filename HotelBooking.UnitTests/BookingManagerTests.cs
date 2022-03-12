@@ -18,13 +18,13 @@ namespace HotelBooking.UnitTests
         }
 
         [Fact]
-        public void FindAvailableRoom_StartDateNotInTheFuture_ThrowsArgumentException()
+        public void FindAvailableRoom_StartDateNotLaterThanEndDate_ThrowsArgumentException()
         {
             // Arrange
-            DateTime dateStart = DateTime.Today;
-            DateTime dateEnd = dateStart;
+            DateTime dateStart = DateTime.Today.AddDays(10);
+            DateTime dateEnd = DateTime.Today.AddDays(1);
             // Act
-            Action act = () => bookingManager.FindAvailableRoom(dateStart, dateEnd);
+            void act() => bookingManager.FindAvailableRoom(dateStart, dateEnd);
 
             // Assert
             Assert.Throws<ArgumentException>(act);
@@ -36,7 +36,7 @@ namespace HotelBooking.UnitTests
             DateTime dateStart = DateTime.Today.AddDays(-5);
             DateTime dateEnd = DateTime.Today;
             // Act
-            Action act = () => bookingManager.FindAvailableRoom(dateStart, dateEnd);
+            void act() => bookingManager.FindAvailableRoom(dateStart, dateEnd);
 
             // Assert
             Assert.Throws<ArgumentException>(act);
@@ -46,9 +46,10 @@ namespace HotelBooking.UnitTests
         public void FindAvailableRoom_RoomAvailable_RoomIdNotMinusOne()
         {
             // Arrange
-            DateTime date = DateTime.Today.AddDays(1);
+            DateTime dateStart = DateTime.Today.AddDays(1);
+            DateTime dateEnd = dateStart;
             // Act
-            int roomId = bookingManager.FindAvailableRoom(date, date);
+            int roomId = bookingManager.FindAvailableRoom(dateStart, dateEnd);
             // Assert
             Assert.NotEqual(-1, roomId);
         }
