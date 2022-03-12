@@ -21,10 +21,22 @@ namespace HotelBooking.UnitTests
         public void FindAvailableRoom_StartDateNotInTheFuture_ThrowsArgumentException()
         {
             // Arrange
-            DateTime date = DateTime.Today;
-
+            DateTime dateStart = DateTime.Today;
+            DateTime dateEnd = dateStart;
             // Act
-            Action act = () => bookingManager.FindAvailableRoom(date, date);
+            Action act = () => bookingManager.FindAvailableRoom(dateStart, dateEnd);
+
+            // Assert
+            Assert.Throws<ArgumentException>(act);
+        }
+        [Fact]
+        public void FindAvailableRoom_StartDateInThePast_ThrowsArgumentException()
+        {
+            // Arrange
+            DateTime dateStart = DateTime.Today.AddDays(-5);
+            DateTime dateEnd = DateTime.Today;
+            // Act
+            Action act = () => bookingManager.FindAvailableRoom(dateStart, dateEnd);
 
             // Assert
             Assert.Throws<ArgumentException>(act);
