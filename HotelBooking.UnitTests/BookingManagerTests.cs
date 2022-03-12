@@ -81,7 +81,6 @@ namespace HotelBooking.UnitTests
                 EndDate = DateTime.Today.AddDays(1)
             };
             // Act
-            //bool isCreated = bookingManager.CreateBooking(booking);
             void act() => bookingManager.CreateBooking(booking);
             // Assert
             Assert.Throws<ArgumentException>(act);
