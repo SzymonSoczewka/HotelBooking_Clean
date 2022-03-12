@@ -156,5 +156,16 @@ namespace HotelBooking.UnitTests
             Assert.Equal(6, fullyOccupiedDates.Count);
         }
 
+        [Fact]
+        public void GetFullyOccupiedDates_StartDayAdd21EndDateAdd25_ReturnsEmptyList()
+        {
+            //Arrange
+            DateTime startDate = DateTime.Today.AddDays(1);
+            DateTime endDate = DateTime.Today.AddDays(4);
+            //Act
+            List<DateTime> fullyOccupiedDates = bookingManager.GetFullyOccupiedDates(startDate, endDate);
+            //Assert
+            Assert.Empty(fullyOccupiedDates);
+        }
     }
 }
