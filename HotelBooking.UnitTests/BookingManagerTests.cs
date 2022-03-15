@@ -6,6 +6,25 @@ using Moq;
 
 namespace HotelBooking.UnitTests
 {
+    /*
+     
+                                                                       ,_____ ,
+                                                                      ,._ ,_. 7\
+                                                                     j `-'     /
+                                                                     |o_, o    \
+                                                                    .`_y_`-,'   !
+                                                                    |/   `, `._ `-,
+                                                                    |_     \   _.'*\
+                                                                      >--,-'`-'*_*'``---.
+                                                                      |\_* _*'-'         '
+                                                                     /    `               \
+                                                                     \.         _ .       /
+                                                                      '`._     /   )     /
+                                                                       \  |`-,-|  /c-'7 /
+                                                                        ) \ (_,| |   / (_
+                                                                       ((_/   ((_;)  \_)))
+
+      */
     public class BookingManagerTests
     {
         private readonly Mock<IRepository<Booking>> bookingRepository;
