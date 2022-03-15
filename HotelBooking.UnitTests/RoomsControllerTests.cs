@@ -111,5 +111,6 @@ namespace HotelBooking.UnitTests
             // Assert against the mock object
             fakeRoomRepository.Verify(x => x.Remove(It.IsAny<int>()));
         }
+       
     }
 }

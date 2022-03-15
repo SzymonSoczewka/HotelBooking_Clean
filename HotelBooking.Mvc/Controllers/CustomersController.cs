@@ -109,10 +109,7 @@ namespace HotelBooking.Mvc.Controllers
         }
 
         // GET: Customers/Delete/5
-        public IActionResult ň
-            
-            
-            (int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
