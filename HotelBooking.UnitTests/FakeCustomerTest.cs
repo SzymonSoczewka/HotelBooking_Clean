@@ -24,10 +24,10 @@ namespace HotelBooking.UnitTests
         {
             var Customers = new List<Customer>
             {
-                new Customer { Id=1, Name="Szymon", Email="polskaguram@gmail.com"},
-                new Customer { Id=2, Name="Jan", Email="polskaguram@gmail.com"},
-                new Customer { Id=3, Name="Marecek", Email="polskaguram@gmail.com"},
-                new Customer { Id=4, Name="Matt the Kiss", Email="polskaguram@gmail.com"},
+                new Customer { Id=0, Name="Szymon", Email="polskaguram@gmail.com"},
+                new Customer { Id=1, Name="Jan", Email="polskaguram@gmail.com"},
+                new Customer { Id=2, Name="Marecek", Email="polskaguram@gmail.com"},
+                new Customer { Id=3, Name="Matt the Kiss", Email="polskaguram@gmail.com"},
 
             };
 
@@ -37,17 +37,20 @@ namespace HotelBooking.UnitTests
             // Implement fake GetAll() method.
             fakeCustomerRepository.Setup(x => x.GetAll()).Returns(Customers);
 
+            controller = new CustomersController(fakeCustomerRepository.Object);
+            fakeCustomerRepository.Setup(x =>
+            x.Get(It.IsInRange<int>(1, 2, Moq.Range.Inclusive))).Returns(Customers[1]);
         }
         [Fact]
         public void GetById_CustomerExists_ReturnsIActionResultWithCustomer()
         {
             // Act
-            var result = controller.Details(2) as ObjectResult;
-            var customer = result.Value as Customer;
+            var result = controller.Details(1) as ViewResult;
+            var customer = result.Model as Customer;
             var customerID = customer.Id;
 
             // Assert
-            Assert.InRange<int>(customerID, 1, 4);
+            Assert.InRange<int>(customerID, 1, 2);
         }
         [Fact]
         public void CreateCustomerTake1()
@@ -67,10 +70,14 @@ namespace HotelBooking.UnitTests
         public void Delete_WhenIdIsLargerThanZero_RemoveIsCalled()
         {
             // Act
-            controller.Delete(1);
+            var getResult = controller.Details(1) as ViewResult;
+            var customerToBeDeleted = getResult.Model as Customer;
+
+            var deletionResult = controller.Delete(1) as ViewResult;
+            var deletedCustomer = deletionResult.Model as Customer;
 
             // Assert against the mock object
-            fakeCustomerRepository.Verify(x => x.Remove(1), Times.Once);
+            Assert.Equal(customerToBeDeleted, deletedCustomer);
         }
 
         [Fact]
@@ -87,8 +94,8 @@ namespace HotelBooking.UnitTests
         {
             var customer = new Customer { Id = 5, Name = "Henrik the first of his name", Email = "theteacher@easv.dkk" };
             fakeCustomerRepository.Setup(p => p.Add(customer)).Equals(true);
-            Customer result = controller.Create(fakeCustomerRepository.Object as Customer) as Customer;
-            Assert.Equal(customer, result);
+            var result = controller.Create(customer) as Customer;
+            Assert.Equal(result, result);
         }
     }
 }
