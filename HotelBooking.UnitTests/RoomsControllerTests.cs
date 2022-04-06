@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
-namespace HotelBooking.UnitTests
+namespace HotelBooking.SpecflowTests
 {
     public class RoomsControllerTests
     {
@@ -35,7 +35,7 @@ namespace HotelBooking.UnitTests
             // Alternative setup with argument matchers:
 
             // Any integer:
-            //fakeRoomRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(rooms[1]);
+            //roomRepository.Setup(x => x.Get(It.IsAny<int>())).Returns(rooms[1]);
 
             // Integers from 1 to 2 (using a predicate)
             // If the fake Get is called with an another argument value than 1 or 2,
@@ -44,8 +44,7 @@ namespace HotelBooking.UnitTests
             //fakeRoomRepository.Setup(x => x.Get(It.Is<int>(id => id > 0 && id < 3))).Returns(rooms[1]);
 
             // Integers from 1 to 2 (using a range)
-            fakeRoomRepository.Setup(x =>
-            x.Get(It.IsInRange<int>(1, 2, Moq.Range.Inclusive))).Returns(rooms[1]);
+            fakeRoomRepository.Setup(x => x.Get(It.IsInRange<int>(1, 2, Moq.Range.Inclusive))).Returns(rooms[1]);
 
 
             // Create RoomsController
@@ -102,8 +101,7 @@ namespace HotelBooking.UnitTests
             // does not exist in the repository is passed as a parameter. This behavior corresponds to
             // the behavior of the real repoository's Remove method.
             fakeRoomRepository.Setup(x =>
-                    x.Remove(It.Is<int>(id => id < 1 || id > 2))).
-                    Throws<InvalidOperationException>();
+                    x.Remove(It.Is<int>(id => id < 1 || id > 2))).Throws<InvalidOperationException>();
 
             // Assert
             Assert.Throws<InvalidOperationException>(() => controller.Delete(3));

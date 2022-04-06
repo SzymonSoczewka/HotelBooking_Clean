@@ -23,14 +23,14 @@ namespace HotelBooking.WebApi.Controllers
             bookingManager = manager;
         }
 
-        // GET: bookings
+        // GET: api/bookings
         [HttpGet(Name = "GetBookings")]
         public IEnumerable<Booking> Get()
         {
             return bookingRepository.GetAll();
         }
 
-        // GET bookings/5
+        // GET api/bookings/5
         [HttpGet("{id}", Name = "GetBooking")]
         public IActionResult Get(int id)
         {
@@ -42,7 +42,7 @@ namespace HotelBooking.WebApi.Controllers
             return new ObjectResult(item);
         }
 
-        // POST bookings
+        // POST api/bookings
         [HttpPost]
         public IActionResult Post([FromBody]Booking booking)
         {
@@ -64,7 +64,7 @@ namespace HotelBooking.WebApi.Controllers
 
         }
 
-        // PUT bookings/5
+        // PUT api/bookings/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]Booking booking)
         {
@@ -90,7 +90,7 @@ namespace HotelBooking.WebApi.Controllers
             return NoContent();
         }
 
-        // DELETE bookings/5
+        // DELETE api/bookings/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
