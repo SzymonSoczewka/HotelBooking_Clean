@@ -16,8 +16,7 @@ namespace HotelBooking.Infrastructure.Repositories
 
         public void Add(Room entity)
         {
-            db.Room.Add(entity);
-            db.SaveChanges();
+            throw new NotImplementedException();
         }
 
         public void Edit(Room entity)

@@ -31,7 +31,8 @@ namespace HotelBooking.UnitTests
         private readonly Mock<IRepository<Room>> roomRepository;
         private readonly IBookingManager bookingManager;
 
-        public BookingManagerTests(){
+        public BookingManagerTests()
+        {
             roomRepository = new Mock<IRepository<Room>>();
             bookingRepository = new Mock<IRepository<Booking>>();
 
@@ -94,7 +95,7 @@ namespace HotelBooking.UnitTests
         public void CreateBooking_StartDateLaterThanEndDate_ThrowsArgumentException()
         {
             // Arrange
-            Booking booking = new()
+            Booking booking = new Booking()
             {
                 StartDate = DateTime.Today.AddDays(10),
                 EndDate = DateTime.Today.AddDays(1)
@@ -109,7 +110,7 @@ namespace HotelBooking.UnitTests
         public void CreateBooking_StartDateInThePast_ThrowsArgumentException()
         {
             // Arrange
-            Booking booking = new()
+            Booking booking = new Booking()
             {
                 StartDate = DateTime.Today.AddDays(-5),
                 EndDate = DateTime.Today
@@ -124,7 +125,7 @@ namespace HotelBooking.UnitTests
         public void CreateBooking_RoomUnavailable_ReturnsFalse()
         {
             // Arrange
-            Booking booking = new()
+            Booking booking = new Booking()
             {
                 StartDate = DateTime.Today.AddDays(6),
                 EndDate = DateTime.Today.AddDays(8)
@@ -139,7 +140,7 @@ namespace HotelBooking.UnitTests
         public void CreateBooking_AvailableRoom_ReturnsTrue()
         {
             // Arrange
-            Booking booking = new()
+            Booking booking = new Booking()
             {
                 StartDate = DateTime.Today.AddDays(21),
                 EndDate = DateTime.Today.AddDays(25)

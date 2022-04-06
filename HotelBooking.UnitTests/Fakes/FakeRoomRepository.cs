@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using HotelBooking.Core;
 
-namespace HotelBooking.UnitTests.Fakes
+namespace HotelBooking.SpecflowTests.Fakes
 {
 
     /*

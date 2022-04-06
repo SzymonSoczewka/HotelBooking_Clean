@@ -17,14 +17,14 @@ namespace HotelBooking.WebApi.Controllers
             repository = repos;
         }
 
-        // GET: rooms
-        [HttpGet(Name = "GetRooms")]
+        // GET: api/rooms
+        [HttpGet]
         public IEnumerable<Room> Get()
         {
             return repository.GetAll();
         }
 
-        // GET rooms/5
+        // GET api/rooms/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -36,21 +36,7 @@ namespace HotelBooking.WebApi.Controllers
             return new ObjectResult(item);
         }
 
-        // POST roooms
-        [HttpPost]
-        public IActionResult Post([FromBody] Room room)
-        {
-            if (room == null)
-            {
-                return BadRequest();
-            }
-
-            repository.Add(room);
-            return CreatedAtRoute("GetRooms", null);
-        }
-
-
-        // DELETE rooms/5
+        // DELETE api/rooms/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
